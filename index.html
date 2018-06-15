@@ -1,1 +1,67 @@
-test
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>cwj demo home page</title>
+</head>
+<body>
+    <div class="container">
+        <div id="ttd"></div>
+        <div id="tty"></div>
+    </div>
+</body>
+</html>
+<script>
+    const nextDay = _ => new Date().setHours(24, 0, 0)
+    const lastYear = _ => new Date(new Date().setMonth(0, 0)).setHours(24, 0, 0)
+    const nextYear = _ => new Date(new Date().setMonth(12, 1)).setHours(0, 0, 0)
+    const analyzeTTL = time => {
+        let h = Math.floor(time / 3600)
+        let m = Math.floor((time % 3600) / 60)
+        let s = Math.floor(time % 3600 % 60)
+        return {h, m, s}
+    }
+    const $id = id => document.getElementById(id)
+    const render = (content, elm) => {
+        (elm.innerHTML !== content) && (elm.innerHTML = content)
+    }
+    const ttDe = () => {
+        let secondToDay = (nextDay() - new Date()) / 1000
+        let {h, m} = analyzeTTL(secondToDay)
+        let content
+        if (h >= 12) {
+            content = `今天已经度过了: ${24 - h}小时 ${60 - m}分钟`
+        } else {
+            content = `距离今天结束还有: ${h}小时 ${m}分钟`
+        }
+        render(content, $id('ttd'))
+    }
+    const ttYe = () => {
+        let year = new Date().getFullYear()
+        let per = (Date.now() - lastYear()) / (nextYear() - lastYear())
+        let content = `${year}年已经过去了${(per * 100).toFixed(5)}%`
+        render(content, $id('tty'))
+
+    }
+    const exec = () => {
+        ttDe()
+        ttYe()
+    }
+    exec()
+    setInterval(() => {
+        exec()
+    }, 1000)
+</script>
+<style>
+    .container {
+        width: 1000px;
+        margin: 100px auto;
+    }
+    .container>div {
+        padding: 10px;
+        font-size: 30px;
+        text-align: center;
+        font-weight: bolder;
+        font-family: "PingFang HK";
+    }
+</style>
