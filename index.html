@@ -22,9 +22,8 @@
         return {h, m, s}
     }
     const $id = id => document.getElementById(id)
-    const render = (content, elm) => {
-        (elm.innerHTML !== content) && (elm.innerHTML = content)
-    }
+    const render = (content, elm) => (elm.innerHTML !== content) && (elm.innerHTML = content)
+    const setTitle = content => (document.title !== content) && (document.title = content)
     const ttDe = () => {
         let secondToDay = (nextDay() - new Date()) / 1000
         let {h, m} = analyzeTTL(secondToDay)
@@ -35,6 +34,7 @@
             content = `距离今天结束还有: ${h}小时 ${m}分钟`
         }
         render(content, $id('ttd'))
+        setTitle(content)
     }
     const ttYe = () => {
         let year = new Date().getFullYear()
