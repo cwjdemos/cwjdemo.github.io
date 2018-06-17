@@ -29,7 +29,7 @@
         let {h, m} = analyzeTTL(secondToDay)
         let content
         if (h >= 12) {
-            content = `今天已经度过了: ${24 - h}小时 ${60 - m}分钟`
+            content = `今天已经度过了: ${23 - h}小时 ${59 - m}分钟`
         } else {
             content = `距离今天结束还有: ${h}小时 ${m}分钟`
         }
