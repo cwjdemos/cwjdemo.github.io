@@ -3,11 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>cwj demo home page</title>
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
-        <div id="ttd"></div>
-        <div id="tty"></div>
+        <div class="header">
+            <div style="height: 148px;"></div>
+            <div id="ttd" class="subtitle"></div>
+            <div id="tty" class="subtitle"></div>
+        </div>
+        <div id="projects">
+
+        </div>
     </div>
 </body>
 </html>
@@ -51,17 +58,93 @@
     setInterval(() => {
         exec()
     }, 1000)
+    const toggleClass = (ele, cls) => {
+        let origin = ele.className.split(' ')
+        if (origin.indexOf(cls) > -1) {
+            origin.splice(origin.indexOf(cls), 1)
+        } else {
+            origin.push(cls)
+        }
+        ele.className = origin.join(' ')
+    }
+    const addProject = (title, options, desc) => {
+        const githubPrefix = 'https://github.com/cwj0417/'
+        let {github, homepage, demonstration} = options
+        let $project = document.createElement('div')
+        $project.className = 'project'
+        let $title = document.createElement('div')
+        $title.className = 'title'
+        let $desc = document.createElement('div')
+        $desc.className = 'desc hid'
+        $project.appendChild($title)
+        $project.appendChild($desc)
+        document.getElementById('projects').appendChild($project)
+
+        // arrow
+        let $arrow = document.createElement('i')
+        $arrow.className = 'fa fa-angle-down arrow'
+        $arrow.addEventListener('click', () => {
+            toggleClass($arrow, 'expended')
+            toggleClass($desc, 'hid')
+        })
+        // title
+        let $name = document.createElement('div')
+        $name.className = 'name'
+        $name.innerHTML = title
+
+        $title.appendChild($arrow)
+        $title.appendChild($name)
+
+        // github
+        if (github) {
+            let $github_a = document.createElement('a')
+            let $github_icon = document.createElement('i')
+            $github_a.href = `${githubPrefix}/${github}`
+            $github_a.target = '_blank'
+            $github_icon.className = 'fa fa-github'
+            $github_a.appendChild($github_icon)
+            $title.appendChild($github_a)
+        }
+
+        //desc
+        $desc.innerHTML = desc
+    }
+    addProject('泡泡龙', {github: 'canvas'}, '2014年研究canvas时做的游戏')
+    addProject('时钟', {github: 'canvas'}, '2014年研究canvas时做的游戏')
+    addProject('vocabook', {github: 'lock-on'}, '背单词软件')
+    addProject('yosoro', {github: 'yosoro'}, 'chrome插件')
 </script>
 <style>
     .container {
         width: 1000px;
-        margin: 100px auto;
+        margin: 0 auto;
     }
-    .container>div {
-        padding: 10px;
-        font-size: 30px;
+    .container>.header {
+        background-image: url('assets/title.png');
+        height: 200px;
+        background-repeat: no-repeat;
+        background-position: 240px -172px;
+    }
+    .subtitle {
+        padding: 3px;
+        font-size: 15px;
         text-align: center;
         font-weight: bolder;
         font-family: "PingFang HK";
+    }
+    .title {
+        display: flex;
+    }
+    .desc {
+        transition: all .1s
+    }
+    .hid {
+        transform: rotateX(90deg);
+    }
+    .arrow {
+        transition: all .1s;
+    }
+    .expended {
+        transform: rotateX(180deg);
     }
 </style>
