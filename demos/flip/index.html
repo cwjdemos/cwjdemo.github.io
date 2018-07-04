@@ -1,0 +1,181 @@
+<html>
+    <head></head>
+    <script src="victor.min.js"></script>
+    <body>
+        <canvas id="canvas" style="border: 1px solid black"></canvas>
+    </body>
+</html>
+<script>
+    // defines
+    const WIDTH = 350
+    const HEIGHT = 550
+    const canvas = document.getElementById('canvas')
+    canvas.width = WIDTH
+    canvas.height = HEIGHT
+    const ctx = canvas.getContext('2d')
+    const g = 0.04 // gravity
+    let total = 1
+    let ready = true
+    let shootHandle = null
+
+    // object
+    class Bullets {
+        constructor (x = WIDTH / 2, y = 0, vx = 0, vy = 0, r = 5) {
+            this.r = r
+            this.x = x
+            this.y = y
+            this.vx = vx
+            this.vy = vy
+        }
+    }
+
+    class Circle {
+        constructor (x, y, r, rotate, health) {
+            this.x = x
+            this.y = y
+            this.r = r
+            this.rotate = 0
+            this.health = health
+        }
+        includes (x, y, r) {
+            let dis = Math.pow(r + this.r, 2) - Math.pow(x - this.x, 2) - Math.pow(y - this.y, 2)
+            if (dis >= 15) {
+                if (dis >= 5) {
+                    this.health--
+                }
+                return true
+            }
+        }
+        flipTo (x, y, vx, vy) {
+            let inDeg = new Victor(vy, vx).angleDeg()
+            let heartDeg = new Victor(y - this.y, x - this.x).angleDeg()
+            return new Victor(vx, vy).rotateDeg(2 * heartDeg - inDeg)
+        }
+        draw () {
+            ctx.beginPath()
+            ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI)
+            ctx.stroke()
+            ctx.font = '12px Georgia'
+            ctx.fillText(this.health, this.x - 8, this.y + 4)
+            ctx.closePath()
+        }
+    }
+
+
+    // context data
+    let bullets = []
+    let targets = []
+
+    // for test
+
+    total = 10
+    targets.push(new Circle(100, 75, 15, 0, 100))
+    targets.push(new Circle(200, 150, 15, 0, 100))
+    targets.push(new Circle(300, 470, 15, 0, 100))
+    targets.push(new Circle(100, 340, 15, 0, 100))
+    targets.push(new Circle(200, 250, 15, 0, 100))
+    targets.push(new Circle(300, 300, 15, 0, 100))
+
+    // test end
+
+    let calc = () => {
+        calcBullets()
+        calcBorder()
+        calcCollision()
+    }
+
+    let calcBullets = () => {
+        for (let bullet of bullets) {
+            bullet.vy += g
+            bullet.x += bullet.vx
+            bullet.y += bullet.vy
+        }
+    }
+
+    let calcBorder = () => {
+        for (let i = 0; i < bullets.length; i++) {
+            let bullet = bullets[i]
+            if (bullet.x <= bullet.r || bullet.x >= WIDTH - bullet.r) {
+                bullet.vx = -bullet.vx
+            }
+            if (bullet.y <= bullet.r) {
+                bullet.vy = -bullet.vy
+            }
+            if (bullet.y > HEIGHT) {
+                bullets.splice(i, 1)
+                total += 1
+            }
+        }
+        if (!bullets.length) {
+            ready = true
+        }
+    }
+
+    let calcCollision = () => {
+        for (let bullet of bullets) {
+            for (let i = 0; i < targets.length; i++) {
+                if (targets[i].includes(bullet.x, bullet.y, bullet.r)) {
+                    let {x, y} = targets[i].flipTo(bullet.x, bullet.y, bullet.vx, bullet.vy)
+                    bullet.vx = x
+                    bullet.vy = y
+                    break
+                }
+            }
+        }
+    }
+
+    let draw = () => {
+        ctx.clearRect(0, 0, WIDTH, HEIGHT)
+        drawBullets()
+        drawTargets()
+        drawScore()
+    }
+
+    let drawBullets = () => {
+        for (let bullet of bullets) {
+            ctx.beginPath()
+            ctx.arc(bullet.x, bullet.y, bullet.r, 0, 2 * Math.PI)
+            ctx.stroke()
+            ctx.closePath()
+        }
+    }
+
+    let drawTargets = () => {
+        targets = targets.filter(each => each.health > 0)
+        for (let target of targets) {
+            target.draw()
+        }
+    }
+
+    let drawScore = () => {
+        ctx.beginPath()
+        ctx.font = '20px Georgia'
+        ctx.fillText(total, WIDTH / 2, 15)
+        ctx.closePath()
+    }
+
+    let render = () => {
+        calc()
+        draw()
+        requestAnimationFrame(render)
+    }
+
+    // init
+
+    requestAnimationFrame(render)
+
+    canvas.onclick = e => {
+        if (ready) {
+            ready = false
+            let {x, y} = new Victor(e.offsetX, e.offsetY).subtract(new Victor(WIDTH / 2, 0)).normalize()
+            shootHandle = setInterval(() => {
+                if (total) {
+                    total --
+                    bullets.push(new Bullets(WIDTH / 2, 10, x * 4 , y * 4))
+                } else {
+                    clearInterval(shootHandle)
+                }
+            }, 100)
+        }
+    }
+</script>
