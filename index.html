@@ -100,6 +100,10 @@
         let $name = document.createElement('div')
         $name.className = 'name'
         $name.innerHTML = title
+        $name.addEventListener('click', () => {
+            toggleClass($arrow, 'expended')
+            toggleClass($desc, 'hid')
+        })
 
         $title.appendChild($arrow)
         $title.appendChild($name)
@@ -152,6 +156,7 @@
 <style>
 body {
     font-family: "PingFang SC";
+    user-select: none;
 }
 .container {
     width: 1000px;
@@ -172,13 +177,18 @@ body {
 .title {
     display: flex;
 }
+.title i {
+    margin: 0 8px;
+    font-weight: 900;
+}
 
 .desc {
-    transition: all .1s
+    transition: all .2s
 }
 
 .hid {
     transform: rotateX(90deg);
+    height: 0;
 }
 
 .arrow {
@@ -186,13 +196,21 @@ body {
 }
 
 .expended {
+    height: auto;
     transform: rotateX(180deg);
+    padding: 10px;
+}
+.desc {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
 }
 .pj-wrap {
     display: flex;
 }
 .pj {
     width: 50%;
+}
+.project {
+    padding: 5px;
 }
 a, a:visited {
     color: inherit;
