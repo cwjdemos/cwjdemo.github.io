@@ -77,7 +77,7 @@
     }
     const githubPrefix = 'https://github.com/cwj0417/'
     const demoDir = 'demos/'
-    const addProject = (title, options, desc, isGame, download) => {
+    const addProject = (title, options, desc, isGame) => {
         let { github, homepage, demonstration, download } = options
         let $project = document.createElement('div')
         $project.className = 'project'
@@ -159,7 +159,7 @@
     addProject('钢琴模拟器', {github: 'keyboardJoy', demonstration: 'keyboard/index.html'}, '加载midi文件来模拟钢琴弹奏', true)
     addProject('弹一弹', {github: 'superflip', demonstration: 'flip/index.html'}, '小游戏', true)
     addProject('carrot', {github: 'carrot'}, '基于rn的菜谱app')
-    addProject('vocabook', { github: 'lock-on' }, '背单词软件')
+    addProject('vocabook', { github: 'lock-on', download: 'lock-on' }, '背单词软件')
     addProject('yosoro', { github: 'yosoro' }, 'chrome插件, 提供多种实用功能')
     addProject('gistore', { github: 'gistore', homepage: githubPrefix + 'gistore' }, '使用github的gist服务来备份单机应用')
     addProject('did', { github: 'did', homepage: githubPrefix + 'did', download: 'did' }, 'chrome插件, 记录每天做的事和todos.')
