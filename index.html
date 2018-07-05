@@ -77,8 +77,8 @@
     }
     const githubPrefix = 'https://github.com/cwj0417/'
     const demoDir = 'demos/'
-    const addProject = (title, options, desc, isGame) => {
-        let { github, homepage, demonstration } = options
+    const addProject = (title, options, desc, isGame, download) => {
+        let { github, homepage, demonstration, download } = options
         let $project = document.createElement('div')
         $project.className = 'project'
         let $title = document.createElement('div')
@@ -139,6 +139,16 @@
             $title.appendChild($homepage_a)
         }
 
+        if (download) {
+            let $download_a = document.createElement('a')
+            let $download_icon = document.createElement('i')
+            $download_a.href = `${githubPrefix}/${download}/releases`
+            $download_a.target = '_blank'
+            $download_icon.className = 'fa fa-download'
+            $download_a.appendChild($download_icon)
+            $title.appendChild($download_a)
+        }
+
         //desc
         $desc.innerHTML = desc
     }
@@ -152,6 +162,7 @@
     addProject('vocabook', { github: 'lock-on' }, '背单词软件')
     addProject('yosoro', { github: 'yosoro' }, 'chrome插件, 提供多种实用功能')
     addProject('gistore', { github: 'gistore', homepage: githubPrefix + 'gistore' }, '使用github的gist服务来备份单机应用')
+    addProject('did', { github: 'did', homepage: githubPrefix + 'did', download: 'did' }, 'chrome插件, 记录每天做的事和todos.')
 </script>
 <style>
 body {
