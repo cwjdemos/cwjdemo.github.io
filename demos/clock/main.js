@@ -12,7 +12,10 @@ let balls = [];
 <!-- main -->
 let canvas = document.getElementById('canvas');
 let c = canvas.getContext('2d');
-const colors = ['#33b5e5', '#0099cc', '#aa66cc', '#9933cc', '#99cc99', '#99cc00', '#669900', '#ffbb33', '#ff8800', '#ff4444', '#cc0000'];
+let colors = ['#33b5e5', '#0099cc', '#aa66cc', '#9933cc', '#99cc99', '#99cc00', '#669900', '#ffbb33', '#ff8800', '#ff4444', '#cc0000'];
+let color_text = "#4BC4FF"
+let color_lighted_text = "#FF7F00";
+let color_bg = 'rgba(0, 0, 0, .8)';
 canvas.width = WINDOW_WIDTH;
 canvas.height = WINDOW_HEIGHT;
 let time = gettimedata();
@@ -43,15 +46,15 @@ function execute () {
 }
 
 function draw (x, y, num, c) {
-    c.fillStyle = "#4BC4FF";
+    c.fillStyle = color_text;
     for (let i = 0; i < 10; i++) {
         for (let j = 0; j < 7; j++) {
             if (digit[num][i][j] == 1) {
                 c.beginPath();
                 if ((x + RADIUS + 1 + 2 * j * (RADIUS + 1) - focus.x) * (x + RADIUS + 1 + 2 * j * (RADIUS + 1) - focus.x) + (y + RADIUS + 1 + 2 * i * (RADIUS + 1) - focus.y) * (y + RADIUS + 1 + 2 * i * (RADIUS + 1) - focus.y) < (SPOTRADIUS) * (SPOTRADIUS)) {
-                    c.fillStyle = "#FF7F00";
+                    c.fillStyle = color_lighted_text;
                 } else {
-                    c.fillStyle = "#4BC4FF";
+                    c.fillStyle = color_text;
                 }
                 c.arc(x + RADIUS + 1 + 2 * j * (RADIUS + 1), y + RADIUS + 1 + 2 * i * (RADIUS + 1), RADIUS, 0, 2 * Math.PI);
                 c.fill();
@@ -191,7 +194,7 @@ function drawballs () {
 
 function spotlight (x, y) {
     c.save();
-    c.fillStyle = "rgba(0,0,0,.8)";
+    c.fillStyle = color_bg;
     c.fillRect(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
     c.fillStyle = "#ccc";
