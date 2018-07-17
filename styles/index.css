@@ -1,0 +1,75 @@
+body {
+    font-family: "PingFang SC";
+    user-select: none;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+.header {
+    background:linear-gradient(180deg,rgba(255,255,255,1),rgba(242,252,255,1));
+}
+
+.subtitle {
+    padding: 3px 100px;
+    font-size: 15px;
+    text-align: center;
+    font-weight: bolder;
+    flex-grow: 1;
+}
+
+.title {
+    display: flex;
+}
+
+.title i {
+    margin: 0 8px;
+    font-weight: 900;
+}
+
+.desc {
+    transition: all .2s
+}
+
+.hid {
+    transform: rotateX(90deg);
+    height: 0;
+}
+
+.arrow {
+    transition: all .1s;
+}
+
+.expended {
+    height: auto;
+    transform: rotateX(180deg);
+    padding: 10px;
+}
+
+.desc {
+    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
+}
+
+.pj-wrap {
+    display: flex;
+}
+
+.pj {
+    width: 50%;
+}
+
+.project {
+    padding: 5px;
+}
+
+a, a:visited {
+    color: inherit;
+}
+
+#progress {
+    border-radius: 10px;
+    background: #f1f1f1;
+    height: 100%;
+}

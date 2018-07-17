@@ -3,227 +3,43 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>cwj demo home page</title>
+    <title>未来ガジェット研究所</title>
     <link href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles/atomic.css">
+    <link rel="stylesheet" href="styles/index.css">
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <div style="font-size: 25px; text-align: center; font-weight: 900;">
-                未来ガジェット研究所
+    <div class="header">
+        <div class="container flex" style="padding: 20px 0;">
+            <div id="ttd" class="subtitle">
+                <div class="h50" id="pt1"></div>
+                <div class="h50">
+                    <span class="theme-color" id="pt2"></span>
+                    H
+                    <span class="theme-color" id="pt3"></span>
+                    M
+                </div>
             </div>
-            <div style="display: flex; width: 460px; margin: 0 auto;">
-                <div id="ttd" class="subtitle"></div>.
-                <div id="tty" class="subtitle"></div>
+            <div style="width: 280px; height: 53px; background: url('assets/header.png'); background-size: 100%;">
+
+            </div>
+            <div id="tty" class="subtitle">
+                <div class="h50" id="pt4"></div>
+                <div class="h50">
+                    <div class="h40" style="background: #4BC4FF; border-radius: 10px; padding: 2px; box-sizing: border-box;">
+                        <div id="progress"></div>
+                    </div>
+                    <div class="h60 theme-color" id="pt5" style="font-size: 12px; line-height: 14px;"></div>
+                </div>
             </div>
         </div>
-        <div class="pj-wrap">
-            <div id="games" class="pj"></div>
-            <div id="projects" class="pj"></div>
-        </div>
+    </div>
+    <div class="pj-wrap">
+        <div id="games" class="pj"></div>
+        <div id="projects" class="pj"></div>
     </div>
 </body>
 
 </html>
-<script>
-    const nextDay = _ => new Date().setHours(24, 0, 0)
-    const lastYear = _ => new Date(new Date().setMonth(0, 0)).setHours(24, 0, 0)
-    const nextYear = _ => new Date(new Date().setMonth(12, 1)).setHours(0, 0, 0)
-    const analyzeTTL = time => {
-        let h = Math.floor(time / 3600)
-        let m = Math.floor((time % 3600) / 60)
-        let s = Math.floor(time % 3600 % 60)
-        return { h, m, s }
-    }
-    const $id = id => document.getElementById(id)
-    const render = (content, elm) => (elm.innerHTML !== content) && (elm.innerHTML = content)
-    const setTitle = content => (document.title !== content) && (document.title = content)
-    const ttDe = () => {
-        let secondToDay = (nextDay() - new Date()) / 1000
-        let { h, m } = analyzeTTL(secondToDay)
-        let content
-        if (h >= 12) {
-            content = `今天已经度过了: ${23 - h}小时 ${59 - m}分钟`
-        } else {
-            content = `距离今天结束还有: ${h}小时 ${m}分钟`
-        }
-        render(content, $id('ttd'))
-        setTitle(content)
-    }
-    const ttYe = () => {
-        let year = new Date().getFullYear()
-        let per = (Date.now() - lastYear()) / (nextYear() - lastYear())
-        let content = `${year}年已经过去了${(per * 100).toFixed(5)}%`
-        render(content, $id('tty'))
-
-    }
-    const exec = () => {
-        ttDe()
-        ttYe()
-    }
-    exec()
-    setInterval(() => {
-        exec()
-    }, 1000)
-    const toggleClass = (ele, cls) => {
-        let origin = ele.className.split(' ')
-        if (origin.indexOf(cls) > -1) {
-            origin.splice(origin.indexOf(cls), 1)
-        } else {
-            origin.push(cls)
-        }
-        ele.className = origin.join(' ')
-    }
-    const githubPrefix = 'https://github.com/cwj0417/'
-    const demoDir = 'demos/'
-    const addProject = (title, options, desc, isGame) => {
-        let { github, homepage, demonstration, download } = options
-        let $project = document.createElement('div')
-        $project.className = 'project'
-        let $title = document.createElement('div')
-        $title.className = 'title'
-        let $desc = document.createElement('div')
-        $desc.className = 'desc hid'
-        $project.appendChild($title)
-        $project.appendChild($desc)
-        document.getElementById(isGame ? 'games' : 'projects').appendChild($project)
-
-        // arrow
-        let $arrow = document.createElement('i')
-        $arrow.className = 'fa fa-angle-down arrow'
-        $arrow.addEventListener('click', () => {
-            toggleClass($arrow, 'expended')
-            toggleClass($desc, 'hid')
-        })
-        // title
-        let $name = document.createElement('div')
-        $name.className = 'name'
-        $name.innerHTML = title
-        $name.addEventListener('click', () => {
-            toggleClass($arrow, 'expended')
-            toggleClass($desc, 'hid')
-        })
-
-        $title.appendChild($arrow)
-        $title.appendChild($name)
-
-        // github
-        if (github) {
-            let $github_a = document.createElement('a')
-            let $github_icon = document.createElement('i')
-            $github_a.href = `${githubPrefix}/${github}`
-            $github_a.target = '_blank'
-            $github_icon.className = 'fa fa-github'
-            $github_a.appendChild($github_icon)
-            $title.appendChild($github_a)
-        }
-
-        if (demonstration) {
-            let $demo_a = document.createElement('a')
-            let $demo_icon = document.createElement('i')
-            $demo_a.href = `${demoDir}${demonstration}`
-            $demo_a.target = '_blank'
-            $demo_icon.className = 'fa fa-play'
-            $demo_a.appendChild($demo_icon)
-            $title.appendChild($demo_a)
-        }
-
-        if (homepage) {
-            let $homepage_a = document.createElement('a')
-            let $homepage_icon = document.createElement('i')
-            $homepage_a.href = homepage
-            $homepage_a.target = '_blank'
-            $homepage_icon.className = 'fa fa-home'
-            $homepage_a.appendChild($homepage_icon)
-            $title.appendChild($homepage_a)
-        }
-
-        if (download) {
-            let $download_a = document.createElement('a')
-            let $download_icon = document.createElement('i')
-            $download_a.href = `${githubPrefix}/${download}/releases`
-            $download_a.target = '_blank'
-            $download_icon.className = 'fa fa-download'
-            $download_a.appendChild($download_icon)
-            $title.appendChild($download_a)
-        }
-
-        //desc
-        $desc.innerHTML = desc
-    }
-    addProject('泡泡龙', { github: 'canvas', demonstration: 'ppl/index.html' }, '2014年研究canvas时做的游戏, 自己写的碰撞判断', true)
-    addProject('时钟', { github: 'canvas', demonstration: 'clock/index.html' }, '2014年研究canvas时照着教程做的', true)
-    addProject('yohane', { github: 'yohane', homepage: githubPrefix + 'yohane' }, '基于命令行, 把md文件转化为ppt')
-    addProject('jin', { github: 'jin', homepage: 'https://jin.yo-cwj.com' }, '配色系统')
-    addProject('钢琴模拟器', {github: 'keyboardJoy', demonstration: 'keyboard/index.html'}, '加载midi文件来模拟钢琴弹奏', true)
-    addProject('弹一弹', {github: 'superflip', demonstration: 'flip/index.html'}, '小游戏', true)
-    addProject('carrot', {github: 'carrot'}, '基于rn的菜谱app')
-    addProject('vocabook', { github: 'lock-on', download: 'lock-on' }, '背单词软件')
-    addProject('yosoro', { github: 'yosoro' }, 'chrome插件, 提供多种实用功能')
-    addProject('gistore', { github: 'gistore', homepage: githubPrefix + 'gistore' }, '使用github的gist服务来备份单机应用')
-    addProject('did', { github: 'did', homepage: githubPrefix + 'did', download: 'did' }, 'chrome插件, 记录每天做的事和todos.')
-</script>
-<style>
-body {
-    font-family: "PingFang SC";
-    user-select: none;
-}
-.container {
-    width: 1000px;
-    margin: 0 auto;
-}
-
-.container>.header {
-    height: 100px;
-}
-
-.subtitle {
-    padding: 3px;
-    font-size: 15px;
-    text-align: center;
-    font-weight: bolder;
-}
-
-.title {
-    display: flex;
-}
-.title i {
-    margin: 0 8px;
-    font-weight: 900;
-}
-
-.desc {
-    transition: all .2s
-}
-
-.hid {
-    transform: rotateX(90deg);
-    height: 0;
-}
-
-.arrow {
-    transition: all .1s;
-}
-
-.expended {
-    height: auto;
-    transform: rotateX(180deg);
-    padding: 10px;
-}
-.desc {
-    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
-}
-.pj-wrap {
-    display: flex;
-}
-.pj {
-    width: 50%;
-}
-.project {
-    padding: 5px;
-}
-a, a:visited {
-    color: inherit;
-}
-</style>
+<script src="scripts/index.js"></script>
