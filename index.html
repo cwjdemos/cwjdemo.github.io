@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="header">
+    <div class="header light-color">
         <div class="container flex" style="padding: 20px 0;">
             <div id="ttd" class="subtitle">
                 <div class="h50" id="pt1"></div>
@@ -21,13 +21,13 @@
                     M
                 </div>
             </div>
-            <div style="width: 280px; height: 53px; background: url('assets/header.png'); background-size: 100%;">
+            <div style="width: 277px; height: 47px; background: url('assets/header.png'); background-size: 100%;">
 
             </div>
             <div id="tty" class="subtitle">
                 <div class="h50" id="pt4"></div>
                 <div class="h50">
-                    <div class="h40" style="background: #4BC4FF; border-radius: 10px; padding: 2px; box-sizing: border-box;">
+                    <div class="h40" style="background: #4BC4FF; border-radius: 10px; padding: 1px; box-sizing: border-box;">
                         <div id="progress"></div>
                     </div>
                     <div class="h60 theme-color" id="pt5" style="font-size: 12px; line-height: 14px;"></div>
@@ -35,11 +35,25 @@
             </div>
         </div>
     </div>
-    <div class="pj-wrap">
-        <div id="games" class="pj"></div>
-        <div id="projects" class="pj"></div>
+    <div class="pj-wrap container flex">
+        <div class="pj-menu">
+            <div class="menu-item" onmouseover="showGame()">实验室</div>
+            <div class="menu-item" onmouseover="showProj()">工具</div>
+        </div>
+        <div id="games" class="pj flex"></div>
+        <div id="projects" class="pj flex" style="display: none;"></div>
     </div>
 </body>
 
 </html>
 <script src="scripts/index.js"></script>
+<script>
+    function showGame () {
+        $id("games").style.display = ""
+        $id("projects").style.display = "none"
+    }
+    function showProj () {
+        $id("games").style.display = "none"
+        $id("projects").style.display = ""
+    }
+</script>

@@ -1,6 +1,7 @@
 body {
     font-family: "PingFang SC";
     user-select: none;
+    background: url('../assets/bg.png')
 }
 
 .container {
@@ -9,7 +10,7 @@ body {
 }
 
 .header {
-    background:linear-gradient(180deg,rgba(255,255,255,1),rgba(242,252,255,1));
+
 }
 
 .subtitle {
@@ -22,6 +23,7 @@ body {
 
 .title {
     display: flex;
+    padding: 20px 90px;
 }
 
 .title i {
@@ -30,7 +32,10 @@ body {
 }
 
 .desc {
-    transition: all .2s
+    color: #999;
+    height: 40px;
+    padding: 10px;
+    font-size: 15px;
 }
 
 .hid {
@@ -48,20 +53,51 @@ body {
     padding: 10px;
 }
 
-.desc {
-    box-shadow: 0 0 5px rgba(0, 0, 0, .2);
-}
-
 .pj-wrap {
     display: flex;
 }
 
+.pj-wrap {
+
+}
+
+.pj-menu {
+    width: 130px;
+}
+
+.menu-item {
+    border-radius: 100px;
+    border: 2px solid #4bc4ff;
+    height: 24px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 1);
+    line-height: 24px;
+    margin: 10px;
+    padding: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
 .pj {
-    width: 50%;
+    width: 870px;
+    flex-wrap: wrap;
 }
 
 .project {
-    padding: 5px;
+    padding: 0;
+    width: 286px;
+    height: 180px;
+    margin: 2px;
+    box-sizing: border-box;
+    background-size: 100%;
+}
+
+.name {
+    text-align: center;
+    padding: 4px;
+    margin: 28px 85px 0;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.6);
 }
 
 a, a:visited {
@@ -72,4 +108,8 @@ a, a:visited {
     border-radius: 10px;
     background: #f1f1f1;
     height: 100%;
+}
+
+.hidden {
+    display: none;
 }

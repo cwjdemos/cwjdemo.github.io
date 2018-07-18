@@ -5,13 +5,13 @@ const analyzeTTL = time => {
     let h = Math.floor(time / 3600)
     let m = Math.floor((time % 3600) / 60)
     let s = Math.floor(time % 3600 % 60)
-    return { h, m, s }
+    return {h, m, s}
 }
 const $id = id => document.getElementById(id)
 const render = (content, elm) => (elm.innerHTML !== content) && (elm.innerHTML = content)
 const ttDe = () => {
     let secondToDay = (nextDay() - new Date()) / 1000
-    let { h, m } = analyzeTTL(secondToDay)
+    let {h, m} = analyzeTTL(secondToDay)
     let pt1, pt2, pt3
     if (h >= 12) {
         pt1 = "今天已经度过了"
@@ -55,35 +55,20 @@ const toggleClass = (ele, cls) => {
 const githubPrefix = "https://github.com/cwj0417/"
 const demoDir = "demos/"
 const addProject = (title, options, desc, isGame) => {
-    let { github, homepage, demonstration, download } = options
+    let {github, homepage, demonstration, download} = options
     let $project = document.createElement("div")
     $project.className = "project"
-    let $title = document.createElement("div")
-    $title.className = "title"
-    let $desc = document.createElement("div")
-    $desc.className = "desc hid"
-    $project.appendChild($title)
-    $project.appendChild($desc)
-    document.getElementById(isGame ? "games" : "projects").appendChild($project)
-
-    // arrow
-    let $arrow = document.createElement("i")
-    $arrow.className = "fa fa-angle-down arrow"
-    $arrow.addEventListener("click", () => {
-        toggleClass($arrow, "expended")
-        toggleClass($desc, "hid")
-    })
-    // title
     let $name = document.createElement("div")
     $name.className = "name"
     $name.innerHTML = title
-    $name.addEventListener("click", () => {
-        toggleClass($arrow, "expended")
-        toggleClass($desc, "hid")
-    })
-
-    $title.appendChild($arrow)
-    $title.appendChild($name)
+    $project.appendChild($name)
+    let $title = document.createElement("div")
+    $title.className = "title theme-color"
+    let $desc = document.createElement("div")
+    $desc.className = "desc light-color"
+    $project.appendChild($title)
+    $project.appendChild($desc)
+    document.getElementById(isGame ? "games" : "projects").appendChild($project)
 
     // github
     if (github) {
@@ -128,15 +113,17 @@ const addProject = (title, options, desc, isGame) => {
 
     //desc
     $desc.innerHTML = desc
+
+    $project.style.backgroundImage = `url(assets/itembg/${title}.png)`
 }
-addProject("泡泡龙", { github: "canvas", demonstration: "ppl/index.html" }, "2014年研究canvas时做的游戏, 自己写的碰撞判断", true)
-addProject("时钟", { github: "canvas", demonstration: "clock/index.html" }, "2014年研究canvas时照着教程做的", true)
-addProject("yohane", { github: "yohane", homepage: githubPrefix + "yohane" }, "基于命令行, 把md文件转化为ppt")
-addProject("jin", { github: "jin", homepage: "https://jin.yo-cwj.com" }, "配色系统")
+addProject("泡泡龙", {github: "canvas", demonstration: "ppl/index.html"}, "2014年研究canvas时做的游戏, 自己写的碰撞判断", true)
+addProject("时钟", {github: "canvas", demonstration: "clock/index.html"}, "2014年研究canvas时照着教程做的", true)
+addProject("yohane", {github: "yohane", homepage: githubPrefix + "yohane"}, "基于命令行, 把md文件转化为ppt")
+addProject("jin", {github: "jin", homepage: "https://jin.yo-cwj.com"}, "配色系统")
 addProject("钢琴模拟器", {github: "keyboardJoy", demonstration: "keyboard/index.html"}, "加载midi文件来模拟钢琴弹奏", true)
 addProject("弹一弹", {github: "superflip", demonstration: "flip/index.html"}, "小游戏", true)
 addProject("carrot", {github: "carrot"}, "基于rn的菜谱app")
-addProject("vocabook", { github: "lock-on", download: "lock-on" }, "背单词软件")
-addProject("yosoro", { github: "yosoro" }, "chrome插件, 提供多种实用功能")
-addProject("gistore", { github: "gistore", homepage: githubPrefix + "gistore" }, "使用github的gist服务来备份单机应用")
-addProject("did", { github: "did", homepage: githubPrefix + "did", download: "did" }, "chrome插件, 记录每天做的事和todos.")
+addProject("vocabook", {github: "lock-on", download: "lock-on"}, "背单词软件")
+addProject("yosoro", {github: "yosoro"}, "chrome插件, 提供多种实用功能")
+addProject("gistore", {github: "gistore", homepage: githubPrefix + "gistore"}, "使用github的gist服务来备份单机应用")
+addProject("did", {github: "did", homepage: githubPrefix + "did", download: "did"}, "chrome插件, 记录每天做的事和todos.")
