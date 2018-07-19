@@ -14,7 +14,7 @@ body {
 }
 
 .subtitle {
-    padding: 3px 100px;
+    padding: 3px 10px;
     font-size: 15px;
     text-align: center;
     font-weight: bolder;
@@ -29,10 +29,11 @@ body {
 .title i {
     margin: 0 8px;
     font-weight: 900;
+    font-size: 24px;
 }
 
 .desc {
-    color: #999;
+    color: #666;
     height: 40px;
     padding: 10px;
     font-size: 15px;
@@ -90,6 +91,12 @@ body {
     margin: 2px;
     box-sizing: border-box;
     background-size: 100%;
+    transition: all .5s;
+    filter: brightness(.7);
+}
+.project:hover {
+    filter: brightness(1);
+    box-shadow: 0 0 5px 5px rgba(0, 0, 0, .5) inset;
 }
 
 .name {
@@ -98,6 +105,7 @@ body {
     margin: 28px 85px 0;
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, .1);
 }
 
 a, a:visited {
