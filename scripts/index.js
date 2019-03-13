@@ -127,3 +127,4 @@ addProject("vocabook", {github: "lock-on", download: "lock-on"}, "背单词软�
 addProject("yosoro", {github: "yosoro"}, "chrome插件, 提供多种实用功能")
 addProject("gistore", {github: "gistore", homepage: githubPrefix + "gistore"}, "使用github的gist服务来备份单机应用")
 addProject("did", {github: "did", homepage: githubPrefix + "did", download: "did"}, "chrome插件, 记录每天做的事和todos.")
+addProject("油价走势图", {demonstration: "oil_price/index.html"})
