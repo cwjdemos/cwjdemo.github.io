@@ -1,0 +1,26 @@
+html, body, #app {
+    height: 100%;
+    overflow: hidden;
+    margin: 0;
+    user-select: none;
+}
+.main {
+    height: 100%;
+}
+path {
+    stroke-width: 3px;
+    fill: transparent;
+}
+.p92 {
+    stroke: #ff7c8a;
+}
+.p95 {
+    stroke: #abff43;
+}
+.t-x-axis {
+    stroke: #666;
+}
+.l-axis {
+    stroke-dasharray: 1px;
+    stroke: #bbbbbb;
+}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>oil price</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.8/vue.min.js"></script>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="main">
+            <svg viewbox="0 0 1000 618" style="height: 100%;">
+                <!--框框-->
+                <rect x="0" y="0" fill="white" stroke="black" stroke-dasharray="5px" width="1000" height="618"/>
+                <!--图标内容-->
+                <path :d="path_92" class="p92"></path>
+                <path :d="path_95" class="p95"></path>
+                <!--text 和x轴数字-->
+                <text v-for="(item, index) of text" :key="index" :x="item.x" :y="item.y" :class="item.clz">{{item.content}}</text>
+                <line v-for="(item, index) of axis" :key="index" :x1="item.x1" :y1="item.y1" :x2="item.x2" :y2="item.y2" class="l-axis"></line>
+                <!--x轴辅助线-->
+            </svg>
+        </div>
+    </div>
+</body>
+<script src="./price.js"></script>
+<script src="./index.js"></script>
+</html>
